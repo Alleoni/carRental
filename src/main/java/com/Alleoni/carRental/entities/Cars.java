@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "tb_Cars")
 public class Cars implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,22 +26,25 @@ public class Cars implements Serializable {
 	private boolean available;
 	private String licensePlate;
 	private Instant createdAt;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Categories category;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
-	
+
 	@OneToOne
 	private Rentals rental;
 
+	@OneToOne
+	private CarsImages carImage;
+
 	public Cars() {
-		
+
 	}
-	
+
 	public Cars(Long id, String name, String description, Integer dailyRate, boolean available, String licensePlate,
 			Instant createdAt) {
 		super();
@@ -134,7 +137,4 @@ public class Cars implements Serializable {
 		this.rental = rental;
 	}
 
-
-	
-	
 }

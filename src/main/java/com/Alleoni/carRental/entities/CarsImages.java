@@ -1,41 +1,38 @@
 package com.Alleoni.carRental.entities;
 
+import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_brand")
-public class Brand {
+@Table(name = "tb_carsimages")
+public class CarsImages implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
 	private Instant createdAt;
+	private String image;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "brand")
-	private List<Cars> cars = new ArrayList<>();
+	@OneToOne
+	private Cars car;
 
-	public Brand() {
+	public CarsImages() {
 
 	}
 
-	public Brand(Long id, String name, Instant createdAt) {
+	public CarsImages(Long id, Instant createdAt, String image) {
 		super();
 		this.id = id;
-		this.name = name;
 		this.createdAt = createdAt;
+		this.image = image;
 	}
 
 	public Long getId() {
@@ -46,20 +43,20 @@ public class Brand {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
 
 	public void setCreatedAt() {
 		this.createdAt = Instant.now();
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

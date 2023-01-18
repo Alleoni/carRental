@@ -33,7 +33,7 @@ public class Categories implements Serializable {
 	public Categories() {
 
 	}
-	
+
 	public Categories(Long id, String name, String description, Instant createdAt) {
 		super();
 		this.id = id;

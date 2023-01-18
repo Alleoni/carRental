@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_Rentals")
 public class Rentals {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,7 +23,7 @@ public class Rentals {
 	private Integer total;
 	private Instant createdAt;
 	private Instant updatedAt;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "customers_id")
 	private Customers customer;
@@ -31,9 +31,9 @@ public class Rentals {
 	@OneToOne
 	@JoinColumn(name = "car_id")
 	private Cars car;
-	
+
 	public Rentals() {
-		
+
 	}
 
 	public Rentals(Long id, Instant startDate, Instant endDate, Integer total, Instant createdAt, Instant updatedAt) {
@@ -82,16 +82,16 @@ public class Rentals {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Instant createdAt) {
-		this.createdAt = createdAt;
+	public void setCreatedAt() {
+		this.createdAt = Instant.now();
 	}
 
 	public Instant getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Instant updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setUpdatedAt() {
+		this.updatedAt = Instant.now();
 	}
 
 	public Customers getCustomer() {
@@ -109,7 +109,5 @@ public class Rentals {
 	public void setCar(Cars car) {
 		this.car = car;
 	}
-	
-	
 
 }

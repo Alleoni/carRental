@@ -34,7 +34,7 @@ public class CarsService {
 		if (car.getId() == null) {
 			throw new NullPointerException("Car Id is undefined");
 		}
-		
+
 		Cars carSaved = findById(car.getId());
 		updateData(carSaved, car);
 		repository.save(carSaved);
@@ -46,6 +46,8 @@ public class CarsService {
 		carSaved.setName(car.getName() == null ? null : car.getName());
 		carSaved.setAvailable(car.isAvailable());
 		carSaved.setCategory(car.getCategory() == null ? null : car.getCategory());
+		carSaved.setDailyRate(car.getDailyRate() == null ? null : car.getDailyRate());
+		carSaved.setBrand(car.getBrand() == null ? null :  car.getBrand());
 		
 	}
 
