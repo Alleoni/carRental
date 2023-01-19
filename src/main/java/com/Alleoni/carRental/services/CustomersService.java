@@ -24,13 +24,13 @@ public class CustomersService {
 		return obj.get();
 	}
 	
-	public Long Create(Customers customer) {
+	public Long create(Customers customer) {
 		customer.setCreatedAt();
 		Customers customerSaved = repository.save(customer);
 		return customerSaved.getId();
 	}
 	
-	public Customers Update(Customers customer) {
+	public Customers update(Customers customer) {
 		if (customer.getId() == null) {
 			throw new NullPointerException("Brand Id undefined");
 		}
@@ -39,7 +39,7 @@ public class CustomersService {
 		updateData(customerSaved, customer);
 		customer.setUpdateAt();
 		return repository.save(customerSaved);
-				
+	
 	}
 
 	private void updateData(Customers customerSaved, Customers customer) {

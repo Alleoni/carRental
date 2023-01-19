@@ -78,4 +78,10 @@ public class Categories implements Serializable {
 		this.createdAt = Instant.now();
 	}
 
+	public void setCars(List<Cars> cars) {
+		this.cars = cars;
+	}
+	
+	
+
 }

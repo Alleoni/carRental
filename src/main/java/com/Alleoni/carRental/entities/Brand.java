@@ -62,4 +62,13 @@ public class Brand {
 		this.createdAt = Instant.now();
 	}
 
+	public List<Cars> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<Cars> cars) {
+		this.cars = cars;
+	}
+	
+
 }

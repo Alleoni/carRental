@@ -137,4 +137,14 @@ public class Cars implements Serializable {
 		this.rental = rental;
 	}
 
+	public CarsImages getCarImage() {
+		return carImage;
+	}
+
+	public void setCarImage(CarsImages carImage) {
+		this.carImage = carImage;
+	}
+	
+	
+
 }

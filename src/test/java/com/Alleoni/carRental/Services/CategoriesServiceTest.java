@@ -1,6 +1,7 @@
 package com.Alleoni.carRental.Services;
 
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class CategoriesServiceTest {
 	private ArgumentCaptor<Categories> captor;
 	
 	@Test
-	@DisplayName("Test")
+	@DisplayName("Find All Test")
 	private void shouldRunSucessfullyFindAll() {
 		Mockito.when(repository.findAll()).thenReturn(provideCategories());
 		
@@ -44,7 +45,7 @@ public class CategoriesServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test 2")
+	@DisplayName("Find By Id Test")
 	private void shouldRunSucessfullyFindById() {
 		Mockito.when(repository.findById(anyLong())).thenReturn(Optional.of(provideCategories().get(0)) );
 		
@@ -56,7 +57,7 @@ public class CategoriesServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test 3")
+	@DisplayName("Update Test")
 	private void shouldRunSucessfullyUpdate() {
 		Mockito.when(repository.findById(anyLong())).thenReturn(Optional.of(provideCategories().get(0)) );
 		
@@ -71,12 +72,22 @@ public class CategoriesServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test 4")
+	@DisplayName("Delete Test")
 	private void shouldRunSucessfullyDelete() {
 	
 		categoriesService.delete(1L);
 		
 		Mockito.verify(repository).deleteById(1L);
+	}
+	
+	@Test
+	@DisplayName("Create Test")
+	private void shouldRunSucessfullyCreate() {
+	
+		categoriesService.create(provideCategories().get(0));
+		
+		Mockito.verify(repository).save(any( ));
+	
 	}
 	
 	private List<Categories> provideCategories(){

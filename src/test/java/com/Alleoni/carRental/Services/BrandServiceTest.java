@@ -1,6 +1,7 @@
 package com.Alleoni.carRental.Services;
 
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class BrandServiceTest {
 	
 	private BrandService brandService;
 	
+	
 	@Captor
 	private ArgumentCaptor<Brand> captor;
 	
@@ -39,7 +41,9 @@ public class BrandServiceTest {
 		
 		var brand = brandService.findAll();
 		
-		Assertions.assertEquals(1, brand.size());
+		Assertions.assertEquals(1L, brand.size());
+	
+
 		
 	}
 	
@@ -51,11 +55,11 @@ public class BrandServiceTest {
 		var brand = brandService.findById(1L);
 		
 		Assertions.assertEquals(1L, brand.getId());
-		Assertions.assertEquals("CategoryTest", brand.getName());
+		Assertions.assertEquals("BrandTest", brand.getName());
 	}
 	
 	@Test
-	@DisplayName("Test 3")
+	@DisplayName("Update Test")
 	private void shouldRunSucessfullyUpdate() {
 		Mockito.when(repository.findById(anyLong())).thenReturn(Optional.of(provideBrand().get(0)) );
 		
@@ -70,7 +74,7 @@ public class BrandServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Test 4")
+	@DisplayName("Delete Test")
 	private void shouldRunSucessfullyDelete() {
 	
 		brandService.delete(1L);
@@ -78,9 +82,19 @@ public class BrandServiceTest {
 		Mockito.verify(repository).deleteById(1L);
 	}
 	
+	@Test
+	@DisplayName("Create Test")
+	private void shouldRunSucessfullyCreate() {
+	
+		brandService.create(provideBrand().get(0));
+		
+		Mockito.verify(repository).save(any( ));
+	
+	}
+	
 	private List<Brand> provideBrand(){
 		var brand = new Brand();
-		brand.setName("CategoryTest");
+		brand.setName("BrandTest");
 		brand.setId(1L);
 		
 		var listBrand = new ArrayList<Brand>();

@@ -23,9 +23,9 @@ public class Customers implements Serializable {
 	private String name;
 	private Instant birthDate;
 	private String email;
-	private Double driverLicense;
+	private Integer driverLicense;
 	private String adress;
-	private Double phoneNumber;
+	private Integer phoneNumber;
 	private Instant createdAt;
 	private Instant updateAt;
 
@@ -36,8 +36,8 @@ public class Customers implements Serializable {
 
 	}
 
-	public Customers(Long id, String name, java.time.Instant birthDate, String email, Double driverLicense,
-			String adress, Double phoneNumber, java.time.Instant createdAt, java.time.Instant updateAt) {
+	public Customers(Long id, String name, java.time.Instant birthDate, String email, Integer driverLicense,
+			String adress, Integer phoneNumber, java.time.Instant createdAt, java.time.Instant updateAt) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -82,11 +82,11 @@ public class Customers implements Serializable {
 		this.email = email;
 	}
 
-	public Double getDriverLicense() {
+	public Integer getDriverLicense() {
 		return driverLicense;
 	}
 
-	public void setDriverLicense(Double driverLicense) {
+	public void setDriverLicense(Integer driverLicense) {
 		this.driverLicense = driverLicense;
 	}
 
@@ -98,11 +98,11 @@ public class Customers implements Serializable {
 		this.adress = adress;
 	}
 
-	public Double getPhoneNumber() {
+	public Integer getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Double phoneNumber) {
+	public void setPhoneNumber(Integer phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 

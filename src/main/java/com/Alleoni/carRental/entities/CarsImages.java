@@ -59,4 +59,13 @@ public class CarsImages implements Serializable {
 		this.image = image;
 	}
 
+	public Cars getCar() {
+		return car;
+	}
+
+	public void setCar(Cars car) {
+		this.car = car;
+	}
+
+
 }
