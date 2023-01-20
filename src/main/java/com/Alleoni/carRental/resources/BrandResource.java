@@ -15,47 +15,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.Alleoni.carRental.entities.Categories;
-import com.Alleoni.carRental.services.CategoriesService;
+import com.Alleoni.carRental.entities.Brand;
+import com.Alleoni.carRental.services.BrandService;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoriesResource {
+@RequestMapping(value = "/brands")
+public class BrandResource {
 
 	@Autowired
-	private CategoriesService service;
+	private BrandService service;
 
 	@GetMapping
-	public ResponseEntity<List<Categories>> findAll() {
-		List<Categories> list = service.findAll();
+	public ResponseEntity<List<Brand>> findAll() {
+		List<Brand> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Categories> findById(@PathVariable Long id) {
-		Categories obj = service.findById(id);
+	public ResponseEntity<Brand> findById(@PathVariable Long id){
+		Brand obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-
+	
 	@PostMapping
-	public ResponseEntity<Categories> insert(@RequestBody Categories category) {
-		category = service.insert(category);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(category.getId())
-				.toUri();
-		return ResponseEntity.created(uri).body(category);
+	public ResponseEntity<Brand> insert(@RequestBody Brand brand){
+		brand = service.insert(brand);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(brand.getId()).toUri();
+		return ResponseEntity.created(uri).body(brand);
 	}
-
+	
 	@DeleteMapping(value = "{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
-
+		
 	}
-
+	
 	@PutMapping(value = "{id}")
-	public ResponseEntity<Categories> update(@PathVariable Long id, @RequestBody Categories category) {
-		category = service.update(id, category);
-		return ResponseEntity.ok().body(category);
+	public ResponseEntity<Brand> update(@PathVariable Long id, @RequestBody Brand brand){
+		brand = service.update(id, brand);
+		return ResponseEntity.ok().body(brand);
 	}
-
+	
 }
+

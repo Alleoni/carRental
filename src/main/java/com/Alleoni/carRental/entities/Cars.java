@@ -34,6 +34,10 @@ public class Cars implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
+	
+	@ManyToOne
+	@JoinColumn(name = "specs_id")
+	private Specifications specification;
 
 	@OneToOne
 	private Rentals rental;

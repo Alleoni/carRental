@@ -62,7 +62,7 @@ public class RentalsServiceTest {
 		var rental = new Rentals();
 		rental.setStartDate(rental.getStartDate());
 
-		rentalsService.update(rental);
+		rentalsService.update(1L,rental);
 
 		Mockito.verify(repository.save(captor.capture()));
 		Assertions.assertEquals(rental.getStartDate(), captor.getValue().getStartDate());
@@ -82,7 +82,7 @@ public class RentalsServiceTest {
 	@DisplayName("Create Test")
 	private void shouldRunSucessfullyCreate() {
 
-		rentalsService.create(provideRentals().get(0));
+		rentalsService.insert(provideRentals().get(0));
 
 		Mockito.verify(repository).save(any());
 

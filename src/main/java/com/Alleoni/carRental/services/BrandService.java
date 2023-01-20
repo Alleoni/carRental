@@ -24,20 +24,24 @@ public class BrandService {
 		return obj.get();
 	}
 
-	public Long create(Brand brand) {
+	public Brand insert(Brand brand) {
 		brand.setCreatedAt();
-		Brand brandSaved = repository.save(brand);
-		return brandSaved.getId();
+//		Brand brandSaved = repository.save(brand);
+		return repository.save(brand);
 	}
 
-	public void update(Brand brand) {
+	public Brand update(Long id, Brand brand) {
 		if (brand.getId() == null) {
 			throw new NullPointerException("Brand Id undefined");
 		}
-
-		Brand brandSaved = findById(brand.getId());
+		
+		Brand brandSaved = repository.getReferenceById(id);
 		updateData(brandSaved, brand);
-		repository.save(brandSaved);
+		return repository.save(brandSaved);
+
+//		Brand brandSaved = findById(brand.getId());
+//		updateData(brandSaved, brand);
+//		repository.save(brandSaved);
 
 	}
 

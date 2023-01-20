@@ -64,7 +64,7 @@ public class CarsServiceTest {
 		car.setDailyRate(1000);
 		car.setDescription("4 portas");
 
-		carsService.update(car);
+		carsService.update(1L,car);
 
 		Mockito.verify(repository.save(captor.capture()));
 		Assertions.assertEquals(1000, captor.getValue().getDailyRate());
@@ -85,7 +85,7 @@ public class CarsServiceTest {
 	@DisplayName("Create Test")
 	private void shouldRunSucessfullyCreate() {
 
-		carsService.create(provideCars().get(0));
+		carsService.insert(provideCars().get(0));
 
 		Mockito.verify(repository).save(any());
 

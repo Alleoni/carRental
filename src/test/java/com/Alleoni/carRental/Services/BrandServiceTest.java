@@ -66,7 +66,7 @@ public class BrandServiceTest {
 		var brand = new Brand();
 		brand.setName("newName");
 		
-		brandService.update(brand);
+		brandService.update(1L,brand);
 		
 		Mockito.verify(repository.save(captor.capture()));
 		Assertions.assertEquals("newName",captor.getValue().getName());
@@ -86,7 +86,7 @@ public class BrandServiceTest {
 	@DisplayName("Create Test")
 	private void shouldRunSucessfullyCreate() {
 	
-		brandService.create(provideBrand().get(0));
+		brandService.insert(provideBrand().get(0));
 		
 		Mockito.verify(repository).save(any( ));
 	

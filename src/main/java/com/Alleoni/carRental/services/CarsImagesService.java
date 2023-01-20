@@ -24,20 +24,24 @@ public class CarsImagesService {
 		return obj.get();
 	}
 
-	public Long create(CarsImages carImage) {
+	public CarsImages insert(CarsImages carImage) {
 		carImage.setCreatedAt();
-		CarsImages carImageSaved = repository.save(carImage);
-		return carImageSaved.getId();
+//		CarsImages carImageSaved = repository.save(carImage);
+		return repository.save(carImage);
 	}
 
-	public void update(CarsImages carImage) {
+	public CarsImages update(Long id, CarsImages carImage) {
 		if (carImage.getId() == null) {
 			throw new NullPointerException("CarsImages Id undefined");
 		}
-
-		CarsImages carImageSaved = findById(carImage.getId());
+		
+		CarsImages carImageSaved = repository.getReferenceById(id);
 		updateData(carImageSaved, carImage);
-		repository.save(carImageSaved);
+		return repository.save(carImageSaved);
+
+//		CarsImages carImageSaved = findById(carImage.getId());
+//		updateData(carImageSaved, carImage);
+//		repository.save(carImageSaved);
 
 	}
 

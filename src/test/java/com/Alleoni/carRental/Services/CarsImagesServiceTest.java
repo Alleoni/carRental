@@ -62,7 +62,7 @@ public class CarsImagesServiceTest {
 		var carsImages = new CarsImages();
 		carsImages.setImage("URL://TESTE");
 
-		carsImagesService.update(carsImages);
+		carsImagesService.update(1L, carsImages);
 
 		Mockito.verify(repository.save(captor.capture()));
 		Assertions.assertEquals("URL://TESTE", captor.getValue().getImage());
@@ -82,7 +82,7 @@ public class CarsImagesServiceTest {
 	@DisplayName("Create Test")
 	private void shouldRunSucessfullyCreate() {
 
-		carsImagesService.create(provideCarsImages().get(0));
+		carsImagesService.insert(provideCarsImages().get(0));
 
 		Mockito.verify(repository).save(any());
 

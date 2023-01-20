@@ -24,20 +24,24 @@ public class CarsService {
 		return obj.get();
 	}
 
-	public Long create(Cars car) {
+	public Cars insert(Cars car) {
 		car.setCreatedAt();
-		Cars carSaved = repository.save(car);
-		return carSaved.getId();
+//		Cars carSaved = repository.save(car);
+		return repository.save(car);
 	}
 
-	public void update(Cars car) {
+	public Cars update(Long id, Cars car) {
 		if (car.getId() == null) {
 			throw new NullPointerException("Car Id is undefined");
 		}
 
-		Cars carSaved = findById(car.getId());
+		Cars carSaved = repository.getReferenceById(id);
 		updateData(carSaved, car);
-		repository.save(carSaved);
+		return repository.save(carSaved);
+		
+//		Cars carSaved = findById(car.getId());
+//		updateData(carSaved, car);
+//		repository.save(carSaved);
 
 	}
 
