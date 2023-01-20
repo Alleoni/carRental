@@ -1,14 +1,19 @@
 package com.Alleoni.carRental.views;
 
+import com.Alleoni.carRental.services.CarsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  *
  * @author guilh
+ *
  */
 @Component
 public class HomeView extends javax.swing.JFrame {
 
+    @Autowired
+    CarsService service;
     
     public HomeView() {
         initComponents();
@@ -173,7 +178,7 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_itemListCarsActionPerformed
 
     private void itemRegisterCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegisterCarsActionPerformed
-        CarRegisterView carRegisterView 
+        CarRegisterView carRegisterView
                 = new CarRegisterView();
         tabbedHome.add("Carros", carRegisterView);
         

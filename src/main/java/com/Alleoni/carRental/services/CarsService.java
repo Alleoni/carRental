@@ -4,10 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.Alleoni.carRental.entities.Cars;
 import com.Alleoni.carRental.repositories.CarsRepository;
+import com.Alleoni.carRental.services.exceptions.DatabaseException;
+import com.Alleoni.carRental.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class CarsService {
@@ -21,28 +28,22 @@ public class CarsService {
 
 	public Cars findById(Long id) {
 		Optional<Cars> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public Cars insert(Cars car) {
 		car.setCreatedAt();
-//		Cars carSaved = repository.save(car);
 		return repository.save(car);
 	}
 
 	public Cars update(Long id, Cars car) {
-		if (car.getId() == null) {
-			throw new NullPointerException("Car Id is undefined");
+		try {
+			Cars carSaved = repository.getReferenceById(id);
+			updateData(carSaved, car);
+			return repository.save(carSaved);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
 		}
-
-		Cars carSaved = repository.getReferenceById(id);
-		updateData(carSaved, car);
-		return repository.save(carSaved);
-		
-//		Cars carSaved = findById(car.getId());
-//		updateData(carSaved, car);
-//		repository.save(carSaved);
-
 	}
 
 	private void updateData(Cars carSaved, Cars car) {
@@ -51,12 +52,17 @@ public class CarsService {
 		carSaved.setAvailable(car.isAvailable());
 		carSaved.setCategory(car.getCategory() == null ? null : car.getCategory());
 		carSaved.setDailyRate(car.getDailyRate() == null ? null : car.getDailyRate());
-		carSaved.setBrand(car.getBrand() == null ? null :  car.getBrand());
-		
+		carSaved.setBrand(car.getBrand() == null ? null : car.getBrand());
+
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
-
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

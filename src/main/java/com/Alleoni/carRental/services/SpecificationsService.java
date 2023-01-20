@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.Alleoni.carRental.entities.Specifications;
 import com.Alleoni.carRental.repositories.SpecificationsRepository;
+import com.Alleoni.carRental.services.exceptions.DatabaseException;
+import com.Alleoni.carRental.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class SpecificationsService {
@@ -21,27 +27,22 @@ public class SpecificationsService {
 
 	public Specifications findById(Long id) {
 		Optional<Specifications> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public Specifications insert(Specifications specification) {
 		specification.setCreatedAt();
-//		Specifications specificationSaved = repository.save(specification);
 		return repository.save(specification);
 	}
 
 	public Specifications update(Long id, Specifications specification) {
-		if (specification.getId() == null) {
-			throw new NullPointerException("Specifications Id undefined");
+		try {
+			Specifications specificationSaved = repository.getReferenceById(id);
+			updateData(specificationSaved, specification);
+			return repository.save(specificationSaved);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
 		}
-		
-		Specifications specificationSaved = repository.getReferenceById(id);
-		updateData(specificationSaved, specification);
-		return repository.save(specificationSaved);
-
-//		Specifications specificationSaved = findById(specification.getId());
-//		updateData(specificationSaved, specification);
-//		repository.save(specificationSaved);
 
 	}
 
@@ -50,6 +51,12 @@ public class SpecificationsService {
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

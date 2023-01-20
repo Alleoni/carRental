@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.Alleoni.carRental.entities.Brand;
 import com.Alleoni.carRental.repositories.BrandRepository;
+import com.Alleoni.carRental.services.exceptions.DatabaseException;
+import com.Alleoni.carRental.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class BrandService {
@@ -21,27 +27,22 @@ public class BrandService {
 
 	public Brand findById(Long id) {
 		Optional<Brand> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public Brand insert(Brand brand) {
 		brand.setCreatedAt();
-//		Brand brandSaved = repository.save(brand);
 		return repository.save(brand);
 	}
 
 	public Brand update(Long id, Brand brand) {
-		if (brand.getId() == null) {
-			throw new NullPointerException("Brand Id undefined");
+		try {
+			Brand brandSaved = repository.getReferenceById(id);
+			updateData(brandSaved, brand);
+			return repository.save(brandSaved);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
 		}
-		
-		Brand brandSaved = repository.getReferenceById(id);
-		updateData(brandSaved, brand);
-		return repository.save(brandSaved);
-
-//		Brand brandSaved = findById(brand.getId());
-//		updateData(brandSaved, brand);
-//		repository.save(brandSaved);
 
 	}
 
@@ -50,6 +51,12 @@ public class BrandService {
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

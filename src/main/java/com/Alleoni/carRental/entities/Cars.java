@@ -26,6 +26,7 @@ public class Cars implements Serializable {
 	private boolean available;
 	private String licensePlate;
 	private Instant createdAt;
+        private String color;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")
@@ -49,7 +50,7 @@ public class Cars implements Serializable {
 
 	}
 
-	public Cars(Long id, String name, String description, Integer dailyRate, boolean available, String licensePlate,
+	public Cars(Long id, String name, String description, String color, Integer dailyRate, boolean available, String licensePlate,
 			Instant createdAt) {
 		super();
 		this.id = id;
@@ -59,6 +60,7 @@ public class Cars implements Serializable {
 		this.available = available;
 		this.licensePlate = licensePlate;
 		this.createdAt = createdAt;
+                this.color = color;
 	}
 
 	public Long getId() {
@@ -148,6 +150,22 @@ public class Cars implements Serializable {
 	public void setCarImage(CarsImages carImage) {
 		this.carImage = carImage;
 	}
+
+    public Specifications getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(Specifications specification) {
+        this.specification = specification;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 	
 	
 

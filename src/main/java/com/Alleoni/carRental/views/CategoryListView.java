@@ -37,7 +37,7 @@ public class CategoryListView extends javax.swing.JPanel {
 
         lblList.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblList.setText("Listagem de Carros");
+        lblList.setText("Listagem de Caregorias");
         lblList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -83,15 +83,9 @@ public class CategoryListView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblList;
-    private javax.swing.JPanel panelGeneral;
-    private javax.swing.JPanel panelGeneral1;
     private javax.swing.JPanel panelGeneral2;
-    private javax.swing.JTable tableList;
-    private javax.swing.JTable tableList1;
     // End of variables declaration//GEN-END:variables
 }

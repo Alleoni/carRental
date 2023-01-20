@@ -4,46 +4,46 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.Alleoni.carRental.entities.Customers;
 import com.Alleoni.carRental.repositories.CustomersRepository;
+import com.Alleoni.carRental.services.exceptions.DatabaseException;
+import com.Alleoni.carRental.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CustomersService {
 
 	@Autowired
 	private CustomersRepository repository;
-	
-	public List<Customers> findAll(){
+
+	public List<Customers> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Customers findById(Long id) {
 		Optional<Customers> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
-	
+
 	public Customers insert(Customers customer) {
 		customer.setCreatedAt();
-//		Customers customerSaved = repository.save(customer);
 		return repository.save(customer);
 	}
-	
+
 	public Customers update(Long id, Customers customer) {
-		if (customer.getId() == null) {
-			throw new NullPointerException("Brand Id undefined");
+		try {
+			Customers customerSaved = repository.getReferenceById(id);
+			updateData(customerSaved, customer);
+			return repository.save(customerSaved);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
 		}
-		
-		Customers customerSaved = repository.getReferenceById(id);
-		updateData(customerSaved, customer);
-		return repository.save(customerSaved);
-		
-//		Customers customerSaved = findById(customer.getId());
-//		updateData(customerSaved, customer);
-//		customer.setUpdateAt();
-//		return repository.save(customerSaved);
-	
+
 	}
 
 	private void updateData(Customers customerSaved, Customers customer) {
@@ -54,9 +54,15 @@ public class CustomersService {
 		customerSaved.setPhoneNumber(customer.getPhoneNumber() == null ? null : customer.getPhoneNumber());
 		customerSaved.setBirthDate(customer.getBirthDate() == null ? null : customer.getBirthDate());
 	}
-	
+
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
-	
+
 }

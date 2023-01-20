@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.Alleoni.carRental.entities.Categories;
 import com.Alleoni.carRental.repositories.CategoriesRepository;
+import com.Alleoni.carRental.services.exceptions.DatabaseException;
+import com.Alleoni.carRental.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CategoriesService {
@@ -21,26 +27,22 @@ public class CategoriesService {
 
 	public Categories findById(Long id) {
 		Optional<Categories> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public Categories insert(Categories category) {
 		category.setCreatedAt();
-//		Categories categorySaved = repository.save(category);
 		return repository.save(category);
 	}
 
 	public Categories update(Long id, Categories category) {
-		if (category.getId() == null) {
-			throw new NullPointerException("Category Id undefined");
+		try {
+			Categories categorySaved = repository.getReferenceById(id);
+			updateData(categorySaved, category);
+			return repository.save(categorySaved);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
 		}
-		Categories categorySaved = repository.getReferenceById(id);
-		updateData(categorySaved, category);
-		return repository.save(categorySaved);
-
-//		Categories categorySaved = findById(category.getId());
-//		updateData(categorySaved, category);
-//		repository.save(categorySaved);
 	}
 
 	private void updateData(Categories categorySaved, Categories category) {
@@ -49,7 +51,13 @@ public class CategoriesService {
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 
 	public CategoriesService(CategoriesRepository repository) {

@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.Alleoni.carRental.entities.Rentals;
 import com.Alleoni.carRental.repositories.RentalsRepository;
+import com.Alleoni.carRental.services.exceptions.DatabaseException;
+import com.Alleoni.carRental.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class RentalsService {
@@ -21,28 +27,22 @@ public class RentalsService {
 
 	public Rentals findById(Long id) {
 		Optional<Rentals> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public Rentals insert(Rentals rental) {
 		rental.setCreatedAt();
-//		Rentals rentalSaved = repository.save(rental);
 		return repository.save(rental);
 	}
 
 	public Rentals update(Long id, Rentals rental) {
-		if (rental.getId() == null) {
-			throw new NullPointerException("Rental Id undefined");
+		try {
+			Rentals rentalSaved = repository.getReferenceById(id);
+			updateData(rentalSaved, rental);
+			return repository.save(rentalSaved);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
 		}
-
-		Rentals rentalSaved = repository.getReferenceById(id);
-		updateData(rentalSaved, rental);
-		return repository.save(rentalSaved);
-		
-//		Rentals rentalSaved = findById(rental.getId());
-//		updateData(rentalSaved, rental);
-//		rental.setUpdatedAt();
-//		repository.save(rentalSaved);
 
 	}
 
@@ -52,6 +52,12 @@ public class RentalsService {
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

@@ -37,7 +37,7 @@ public class SpecificationListView extends javax.swing.JPanel {
 
         lblList.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblList.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblList.setText("Listagem de Carros");
+        lblList.setText("Lista de Especificações");
         lblList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

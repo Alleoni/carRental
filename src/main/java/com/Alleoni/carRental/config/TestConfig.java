@@ -1,36 +1,64 @@
 package com.Alleoni.carRental.config;
 
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+import com.Alleoni.carRental.entities.Brand;
+import com.Alleoni.carRental.entities.Cars;
+import com.Alleoni.carRental.entities.Categories;
+import com.Alleoni.carRental.repositories.BrandRepository;
+import com.Alleoni.carRental.repositories.CarsRepository;
+import com.Alleoni.carRental.repositories.CategoriesRepository;
+//import com.Alleoni.carRental.repositories.CustomersRepository;
+//import com.Alleoni.carRental.repositories.RentalsRepository;
 
 @Configuration
+@Profile("teste")
 public class TestConfig implements CommandLineRunner {
-
 	
-	
-//	@Autowired
-//	private CarsRepository carsRepository;
+	@Autowired
+	private CarsRepository carsRepository;
+        
+        @Autowired
+	private CategoriesRepository categoriesRepository;
+        
+        @Autowired
+	private BrandRepository brandRepository;
+        
+//        @Autowired
+//	private CustomersRepository customersRepository;
+        
+//        @Autowired
+//	private RentalsRepository rentalsRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
-//		Categories cat1 = new Categories() ;
-//                cat1.setName("SUV");
-//                
-//                
-//	
-//		categoryRepository.save(cat1);
+		Categories cat1 = new Categories() ;
+                cat1.setName("SUV");
+                
+                Brand brand1 = new Brand();
+		Brand brand2 = new Brand();
+                
+                brand1.setName("Honda");
+                brand2.setName("Toyota");
+                
+		Cars car1 = new Cars();
+		Cars car2 = new Cars();
+		Cars car3 = new Cars();
+                
+                car1.setBrand(brand2);
+                car2.setColor("Preto");
+                car3.setName("Lorem Ipsum");
 		
-//		Cars car1 = new Cars(1L, "Evoke", "Automático", 400, false, "KLB1234", cat1, null);
-//		Cars car2 = new Cars(2L, "Marea", "Mecânico", 200, true, "BOB4567", cat2, null);
-//		Cars car3 = new Cars(3L, "Mustang", "2 Portas", 1000, true, "RIC2222", cat2, null);
-//		
-//		carsRepository.saveAll(Arrays.asList(car1,car2,car3));
-//		
-		
-		
-		
+                categoriesRepository.save(cat1);
+                brandRepository.saveAll(Arrays.asList(brand1,brand2));
+		carsRepository.saveAll(Arrays.asList(car1,car2,car3));
 		
 	}
 	

@@ -1,5 +1,7 @@
 package com.Alleoni.carRental.views;
 
+import com.Alleoni.carRental.entities.Cars;
+import com.Alleoni.carRental.repositories.CarsRepository;
 import com.Alleoni.carRental.services.CarsService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +13,9 @@ public class CarRegisterView extends javax.swing.JPanel {
     
     @Autowired
     private CarsService service;
+    
+    @Autowired
+    private CarsRepository repository;
     
     public CarRegisterView() {
         initComponents();
@@ -35,14 +40,15 @@ public class CarRegisterView extends javax.swing.JPanel {
         txtLicense = new javax.swing.JTextField();
         BtnRegister = new javax.swing.JButton();
         CategoryPanel = new javax.swing.JPanel();
-        listCategories = new javax.swing.JComboBox<>();
-        lblCategories = new javax.swing.JLabel();
         CategoryPanel2 = new javax.swing.JPanel();
+        CategoryPanel1 = new javax.swing.JPanel();
+        lblBrands = new javax.swing.JLabel();
+        listCategories1 = new javax.swing.JComboBox<>();
+        lblCategories = new javax.swing.JLabel();
+        listCategories = new javax.swing.JComboBox<>();
         listCategories2 = new javax.swing.JComboBox<>();
         lblColor = new javax.swing.JLabel();
-        CategoryPanel1 = new javax.swing.JPanel();
-        listCategories1 = new javax.swing.JComboBox<>();
-        lblBrands = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         panelHome.setToolTipText("");
         panelHome.setPreferredSize(new java.awt.Dimension(700, 400));
@@ -75,14 +81,61 @@ public class CarRegisterView extends javax.swing.JPanel {
             }
         });
 
-        listCategories.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout CategoryPanel2Layout = new javax.swing.GroupLayout(CategoryPanel2);
+        CategoryPanel2.setLayout(CategoryPanel2Layout);
+        CategoryPanel2Layout.setHorizontalGroup(
+            CategoryPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 118, Short.MAX_VALUE)
+        );
+        CategoryPanel2Layout.setVerticalGroup(
+            CategoryPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout CategoryPanelLayout = new javax.swing.GroupLayout(CategoryPanel);
+        CategoryPanel.setLayout(CategoryPanelLayout);
+        CategoryPanelLayout.setHorizontalGroup(
+            CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CategoryPanelLayout.createSequentialGroup()
+                .addComponent(CategoryPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
+        );
+        CategoryPanelLayout.setVerticalGroup(
+            CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CategoryPanelLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(CategoryPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout CategoryPanel1Layout = new javax.swing.GroupLayout(CategoryPanel1);
+        CategoryPanel1.setLayout(CategoryPanel1Layout);
+        CategoryPanel1Layout.setHorizontalGroup(
+            CategoryPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 84, Short.MAX_VALUE)
+        );
+        CategoryPanel1Layout.setVerticalGroup(
+            CategoryPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 48, Short.MAX_VALUE)
+        );
+
+        lblBrands.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblBrands.setText("Brands");
+
+        listCategories1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listCategoriesActionPerformed(evt);
+                listCategories1ActionPerformed(evt);
             }
         });
 
         lblCategories.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCategories.setText("Categories");
+
+        listCategories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listCategoriesActionPerformed(evt);
+            }
+        });
 
         listCategories2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prata", "Branco", "Cinza", "Preto", "Vermelho", "Azul", "Marrom", "Verde", "Amarelo", " " }));
         listCategories2.addActionListener(new java.awt.event.ActionListener() {
@@ -94,117 +147,69 @@ public class CarRegisterView extends javax.swing.JPanel {
         lblColor.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblColor.setText("Color");
 
-        javax.swing.GroupLayout CategoryPanel2Layout = new javax.swing.GroupLayout(CategoryPanel2);
-        CategoryPanel2.setLayout(CategoryPanel2Layout);
-        CategoryPanel2Layout.setHorizontalGroup(
-            CategoryPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CategoryPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CategoryPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblColor)
-                    .addComponent(listCategories2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-        CategoryPanel2Layout.setVerticalGroup(
-            CategoryPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CategoryPanel2Layout.createSequentialGroup()
-                .addComponent(lblColor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listCategories2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout CategoryPanelLayout = new javax.swing.GroupLayout(CategoryPanel);
-        CategoryPanel.setLayout(CategoryPanelLayout);
-        CategoryPanelLayout.setHorizontalGroup(
-            CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CategoryPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblCategories)
-                .addContainerGap(62, Short.MAX_VALUE))
-            .addGroup(CategoryPanelLayout.createSequentialGroup()
-                .addGroup(CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CategoryPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        CategoryPanelLayout.setVerticalGroup(
-            CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CategoryPanelLayout.createSequentialGroup()
-                .addComponent(lblCategories)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(CategoryPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        listCategories1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listCategories1ActionPerformed(evt);
-            }
-        });
-
-        lblBrands.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblBrands.setText("Brands");
-
-        javax.swing.GroupLayout CategoryPanel1Layout = new javax.swing.GroupLayout(CategoryPanel1);
-        CategoryPanel1.setLayout(CategoryPanel1Layout);
-        CategoryPanel1Layout.setHorizontalGroup(
-            CategoryPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CategoryPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CategoryPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBrands)
-                    .addComponent(listCategories1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        CategoryPanel1Layout.setVerticalGroup(
-            CategoryPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CategoryPanel1Layout.createSequentialGroup()
-                .addComponent(lblBrands)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listCategories1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton1.setText("jButton1");
 
         javax.swing.GroupLayout panelHomeLayout = new javax.swing.GroupLayout(panelHome);
         panelHome.setLayout(panelHomeLayout);
         panelHomeLayout.setHorizontalGroup(
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnRegister)
-                .addContainerGap())
             .addGroup(panelHomeLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addContainerGap()
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CategoryPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBirthDate)
                     .addGroup(panelHomeLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBirthDate)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblName))))
-                .addGap(15, 76, Short.MAX_VALUE)
+                            .addComponent(lblBrands)
+                            .addComponent(listCategories1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addComponent(CategoryPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CategoryPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLicense)
-                    .addComponent(txtLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(211, 211, 211))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCategories)
+                            .addComponent(listCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelHomeLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblColor)
+                                    .addComponent(listCategories2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addComponent(CategoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(211, 211, 211))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addComponent(txtLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addComponent(lblLicense)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(100, 100, 100))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomeLayout.createSequentialGroup()
                 .addComponent(lblCustomerRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(panelHomeLayout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(BtnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelHomeLayout.setVerticalGroup(
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHomeLayout.createSequentialGroup()
-                .addComponent(lblCustomerRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(lblLicense))
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addComponent(lblCustomerRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblName)
+                            .addComponent(lblLicense)))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,29 +217,44 @@ public class CarRegisterView extends javax.swing.JPanel {
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CategoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelHomeLayout.createSequentialGroup()
-                        .addComponent(lblBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(CategoryPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
-                .addComponent(BtnRegister)
-                .addContainerGap())
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelHomeLayout.createSequentialGroup()
+                                .addComponent(lblBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelHomeLayout.createSequentialGroup()
+                                .addComponent(lblCategories)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(listCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(CategoryPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelHomeLayout.createSequentialGroup()
+                                .addComponent(lblBrands)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(listCategories1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelHomeLayout.createSequentialGroup()
+                                .addComponent(lblColor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(listCategories2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(10, 10, 10)
+                .addComponent(BtnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelHome, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -243,9 +263,10 @@ public class CarRegisterView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtLicenseActionPerformed
 
     private void BtnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegisterActionPerformed
-        CarRegisterView carRegisterView 
-                = new CarRegisterView();
+//        CarRegisterView carRegisterView
+//                = new CarRegisterView();
         
+        service.insert(new Cars());
         
     }//GEN-LAST:event_BtnRegisterActionPerformed
 
@@ -267,6 +288,7 @@ public class CarRegisterView extends javax.swing.JPanel {
     private javax.swing.JPanel CategoryPanel;
     private javax.swing.JPanel CategoryPanel1;
     private javax.swing.JPanel CategoryPanel2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblBirthDate;
     private javax.swing.JLabel lblBrands;
     private javax.swing.JLabel lblCategories;
