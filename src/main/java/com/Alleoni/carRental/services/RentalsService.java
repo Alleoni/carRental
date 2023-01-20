@@ -24,21 +24,25 @@ public class RentalsService {
 		return obj.get();
 	}
 
-	public Long create(Rentals rental) {
+	public Rentals insert(Rentals rental) {
 		rental.setCreatedAt();
-		Rentals rentalSaved = repository.save(rental);
-		return rentalSaved.getId();
+//		Rentals rentalSaved = repository.save(rental);
+		return repository.save(rental);
 	}
 
-	public void update(Rentals rental) {
+	public Rentals update(Long id, Rentals rental) {
 		if (rental.getId() == null) {
 			throw new NullPointerException("Rental Id undefined");
 		}
 
-		Rentals rentalSaved = findById(rental.getId());
+		Rentals rentalSaved = repository.getReferenceById(id);
 		updateData(rentalSaved, rental);
-		rental.setUpdatedAt();
-		repository.save(rentalSaved);
+		return repository.save(rentalSaved);
+		
+//		Rentals rentalSaved = findById(rental.getId());
+//		updateData(rentalSaved, rental);
+//		rental.setUpdatedAt();
+//		repository.save(rentalSaved);
 
 	}
 

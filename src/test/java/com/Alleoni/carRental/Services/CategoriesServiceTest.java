@@ -64,7 +64,7 @@ public class CategoriesServiceTest {
 		var category = new Categories();
 		category.setName("newName");
 		
-		categoriesService.update(category);
+		categoriesService.update(1L , category);
 		
 		Mockito.verify(repository.save(captor.capture()));
 		Assertions.assertEquals("newName",captor.getValue().getName());
@@ -84,7 +84,7 @@ public class CategoriesServiceTest {
 	@DisplayName("Create Test")
 	private void shouldRunSucessfullyCreate() {
 	
-		categoriesService.create(provideCategories().get(0));
+		categoriesService.insert(provideCategories().get(0));
 		
 		Mockito.verify(repository).save(any( ));
 	

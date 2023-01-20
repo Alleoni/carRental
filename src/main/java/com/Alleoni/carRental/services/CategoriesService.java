@@ -24,21 +24,23 @@ public class CategoriesService {
 		return obj.get();
 	}
 
-	public Long create(Categories category) {
+	public Categories insert(Categories category) {
 		category.setCreatedAt();
-		Categories categorySaved = repository.save(category);
-		return categorySaved.getId();
+//		Categories categorySaved = repository.save(category);
+		return repository.save(category);
 	}
 
-	public void update(Categories category) {
+	public Categories update(Long id, Categories category) {
 		if (category.getId() == null) {
 			throw new NullPointerException("Category Id undefined");
 		}
-		
-		Categories categorySaved = findById(category.getId());
+		Categories categorySaved = repository.getReferenceById(id);
 		updateData(categorySaved, category);
-		repository.save(categorySaved);
+		return repository.save(categorySaved);
 
+//		Categories categorySaved = findById(category.getId());
+//		updateData(categorySaved, category);
+//		repository.save(categorySaved);
 	}
 
 	private void updateData(Categories categorySaved, Categories category) {
@@ -48,5 +50,9 @@ public class CategoriesService {
 
 	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+
+	public CategoriesService(CategoriesRepository repository) {
+		this.repository = repository;
 	}
 }

@@ -68,7 +68,7 @@ public class CustomersServiceTest {
 		customer.setEmail("newEmail");
 		customer.setAdress("newAdress");
 		
-		customersService.update(customer);
+		customersService.update(1L,customer);
 		
 		Mockito.verify(repository.save(captor.capture()));
 		Assertions.assertEquals("newName",captor.getValue().getName());
@@ -90,7 +90,7 @@ public class CustomersServiceTest {
 	@DisplayName("Create Test")
 	private void shouldRunSucessfullyCreate() {
 	
-		customersService.create(provideCustomers().get(0));
+		customersService.insert(provideCustomers().get(0));
 		
 		Mockito.verify(repository).save(any( ));
 	

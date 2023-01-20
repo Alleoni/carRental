@@ -1,18 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.Alleoni.carRental.views;
+
+import com.Alleoni.carRental.repositories.CarsRepository;
+import com.Alleoni.carRental.services.CarsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author guilh
  */
+@Component
 public class HomeView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form HomeView
-     */
+
+@Autowired
+private CarsRepository repository;
+
+@Autowired
+private CarsService service;
+    
     public HomeView() {
         initComponents();
     }
@@ -26,21 +32,205 @@ public class HomeView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tabbedHome = new javax.swing.JTabbedPane();
+        menuBar = new javax.swing.JMenuBar();
+        itemRegisterCar = new javax.swing.JMenu();
+        itemListCars = new javax.swing.JMenuItem();
+        itemRegisterCars = new javax.swing.JMenuItem();
+        editMenu = new javax.swing.JMenu();
+        itemListCustomers = new javax.swing.JMenuItem();
+        itemRegisterCustomer = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        itemListCategories = new javax.swing.JMenuItem();
+        itemRegisterCategories = new javax.swing.JMenuItem();
+        helpMenu2 = new javax.swing.JMenu();
+        itemListSpecification = new javax.swing.JMenuItem();
+        itemRegisterSpecification = new javax.swing.JMenuItem();
+        helpMenu1 = new javax.swing.JMenu();
+        itemCalendar = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tabbedHome.setPreferredSize(new java.awt.Dimension(750, 400));
+
+        itemRegisterCar.setMnemonic('f');
+        itemRegisterCar.setText("Carros");
+
+        itemListCars.setMnemonic('o');
+        itemListCars.setText("Listar");
+        itemListCars.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemListCarsActionPerformed(evt);
+            }
+        });
+        itemRegisterCar.add(itemListCars);
+
+        itemRegisterCars.setMnemonic('s');
+        itemRegisterCars.setText("Cadastrar");
+        itemRegisterCars.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegisterCarsActionPerformed(evt);
+            }
+        });
+        itemRegisterCar.add(itemRegisterCars);
+
+        menuBar.add(itemRegisterCar);
+
+        editMenu.setMnemonic('e');
+        editMenu.setText("Clientes");
+
+        itemListCustomers.setMnemonic('t');
+        itemListCustomers.setText("Listar");
+        itemListCustomers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemListCustomersActionPerformed(evt);
+            }
+        });
+        editMenu.add(itemListCustomers);
+
+        itemRegisterCustomer.setMnemonic('y');
+        itemRegisterCustomer.setText("Cadastrar");
+        itemRegisterCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegisterCustomerActionPerformed(evt);
+            }
+        });
+        editMenu.add(itemRegisterCustomer);
+
+        menuBar.add(editMenu);
+
+        helpMenu.setMnemonic('h');
+        helpMenu.setText("Categorias");
+
+        itemListCategories.setMnemonic('c');
+        itemListCategories.setText("Listar");
+        itemListCategories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemListCategoriesActionPerformed(evt);
+            }
+        });
+        helpMenu.add(itemListCategories);
+
+        itemRegisterCategories.setMnemonic('a');
+        itemRegisterCategories.setText("Cadastrar");
+        itemRegisterCategories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegisterCategoriesActionPerformed(evt);
+            }
+        });
+        helpMenu.add(itemRegisterCategories);
+
+        menuBar.add(helpMenu);
+
+        helpMenu2.setMnemonic('h');
+        helpMenu2.setText("Especificações");
+
+        itemListSpecification.setMnemonic('c');
+        itemListSpecification.setText("Listar");
+        itemListSpecification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemListSpecificationActionPerformed(evt);
+            }
+        });
+        helpMenu2.add(itemListSpecification);
+
+        itemRegisterSpecification.setMnemonic('a');
+        itemRegisterSpecification.setText("Cadastrar");
+        itemRegisterSpecification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegisterSpecificationActionPerformed(evt);
+            }
+        });
+        helpMenu2.add(itemRegisterSpecification);
+
+        menuBar.add(helpMenu2);
+
+        helpMenu1.setMnemonic('h');
+        helpMenu1.setText("Aluguel");
+
+        itemCalendar.setMnemonic('c');
+        itemCalendar.setText("Agenda");
+        itemCalendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCalendarActionPerformed(evt);
+            }
+        });
+        helpMenu1.add(itemCalendar);
+
+        menuBar.add(helpMenu1);
+
+        setJMenuBar(menuBar);
+        menuBar.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(tabbedHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(tabbedHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void itemListCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListCarsActionPerformed
+        CarListView carListView = new CarListView();
+        tabbedHome.add("Listagem de Carros", carListView);
+    }//GEN-LAST:event_itemListCarsActionPerformed
+
+    private void itemRegisterCarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegisterCarsActionPerformed
+        CarRegisterView carRegisterView 
+                = new CarRegisterView();
+        tabbedHome.add("Carros", carRegisterView);
+        
+        
+    }//GEN-LAST:event_itemRegisterCarsActionPerformed
+
+    private void itemRegisterCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegisterCustomerActionPerformed
+        CustomerRegisterView customerRegisterView
+                = new CustomerRegisterView();
+
+        tabbedHome.add("Clientes", customerRegisterView);
+    }//GEN-LAST:event_itemRegisterCustomerActionPerformed
+
+    private void itemRegisterCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegisterCategoriesActionPerformed
+        CategoryRegisterView categoryRegisterView
+                = new CategoryRegisterView();
+
+        tabbedHome.add("Categoria", categoryRegisterView);
+    }//GEN-LAST:event_itemRegisterCategoriesActionPerformed
+
+    private void itemRegisterSpecificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegisterSpecificationActionPerformed
+        SpecificationRegisterView specificationRegisterView
+                = new SpecificationRegisterView();
+
+        tabbedHome.add("Especificações", specificationRegisterView);
+    }//GEN-LAST:event_itemRegisterSpecificationActionPerformed
+
+    private void itemCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCalendarActionPerformed
+        RentalCalendarView rentalCalendarView
+                = new RentalCalendarView();
+
+        tabbedHome.add("Agenda", rentalCalendarView);
+    }//GEN-LAST:event_itemCalendarActionPerformed
+
+    private void itemListCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListCustomersActionPerformed
+        CustomerListView customerListView = new CustomerListView();
+        tabbedHome.add("Listagem de Clientes", customerListView);
+    }//GEN-LAST:event_itemListCustomersActionPerformed
+
+    private void itemListCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListCategoriesActionPerformed
+        CategoryListView categoryListView = new CategoryListView();
+        tabbedHome.add("Listagem de Categorias", categoryListView);
+    }//GEN-LAST:event_itemListCategoriesActionPerformed
+
+    private void itemListSpecificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListSpecificationActionPerformed
+        SpecificationListView specificationListView = new SpecificationListView();
+        tabbedHome.add("Listagem de Especificações", specificationListView);
+    }//GEN-LAST:event_itemListSpecificationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,9 +258,11 @@ public class HomeView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new HomeView().setVisible(true);
             }
@@ -78,5 +270,22 @@ public class HomeView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu editMenu;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenu helpMenu1;
+    private javax.swing.JMenu helpMenu2;
+    private javax.swing.JMenuItem itemCalendar;
+    private javax.swing.JMenuItem itemListCars;
+    private javax.swing.JMenuItem itemListCategories;
+    private javax.swing.JMenuItem itemListCustomers;
+    private javax.swing.JMenuItem itemListSpecification;
+    private javax.swing.JMenu itemRegisterCar;
+    private javax.swing.JMenuItem itemRegisterCars;
+    private javax.swing.JMenuItem itemRegisterCategories;
+    private javax.swing.JMenuItem itemRegisterCustomer;
+    private javax.swing.JMenuItem itemRegisterSpecification;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JTabbedPane tabbedHome;
     // End of variables declaration//GEN-END:variables
+
 }

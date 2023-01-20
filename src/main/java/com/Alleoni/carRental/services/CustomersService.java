@@ -24,21 +24,25 @@ public class CustomersService {
 		return obj.get();
 	}
 	
-	public Long create(Customers customer) {
+	public Customers insert(Customers customer) {
 		customer.setCreatedAt();
-		Customers customerSaved = repository.save(customer);
-		return customerSaved.getId();
+//		Customers customerSaved = repository.save(customer);
+		return repository.save(customer);
 	}
 	
-	public Customers update(Customers customer) {
+	public Customers update(Long id, Customers customer) {
 		if (customer.getId() == null) {
 			throw new NullPointerException("Brand Id undefined");
 		}
 		
-		Customers customerSaved = findById(customer.getId());
+		Customers customerSaved = repository.getReferenceById(id);
 		updateData(customerSaved, customer);
-		customer.setUpdateAt();
 		return repository.save(customerSaved);
+		
+//		Customers customerSaved = findById(customer.getId());
+//		updateData(customerSaved, customer);
+//		customer.setUpdateAt();
+//		return repository.save(customerSaved);
 	
 	}
 
