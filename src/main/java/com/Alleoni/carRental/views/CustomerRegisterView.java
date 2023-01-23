@@ -48,7 +48,7 @@ public class CustomerRegisterView extends javax.swing.JPanel {
         lblName.setText("Nome");
 
         lblBirthDate.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        lblBirthDate.setText("Aniversário");
+        lblBirthDate.setText("Data de Nascimento");
 
         lblNumber.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblNumber.setText("Número de telefone");

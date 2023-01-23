@@ -1,5 +1,6 @@
 package com.Alleoni.carRental.views;
 
+import com.Alleoni.carRental.entities.Cars;
 import com.Alleoni.carRental.services.CarsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -211,6 +212,7 @@ public class HomeView extends javax.swing.JFrame {
                 = new RentalCalendarView();
 
         tabbedHome.add("Agenda", rentalCalendarView);
+        
     }//GEN-LAST:event_itemCalendarActionPerformed
 
     private void itemListCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListCustomersActionPerformed
@@ -262,6 +264,7 @@ public class HomeView extends javax.swing.JFrame {
             public void run() {
                 new HomeView().setVisible(true);
             }
+            
         });
     }
 
